@@ -1,0 +1,430 @@
+push back function for a vector :
+
+we initally create a class named Queue and then intialize the following 
+class Queue{
+    1. array 
+    2. front
+    3. rear
+    4. size
+    5. capacity
+check if the queue is isEmpty or queue is full ?
+    and we before head write isEmpty()function .
+    void isEmpty(int value)
+    {
+        front = rear=0;
+        -> this creates a 2d matrix that can take input directly from the terminal
+    }
+    void push_back(int value)
+    {
+        if(isfull()){
+            cout<<"Queue is full cannont push "<<endl;
+            return ;
+        }
+        if(isEmpty()){
+            cout<<"pushing the element"<<endl;
+            front=rear=0;
+            rear=(rear+1)%capacity;
+            arr[rear]=value;
+            size ++;
+        }
+    }
+}
+
+
+matrices :
+    
+    we create a matix by intializing a 2D matrix .
+    in c++ it can done as 
+    vector<vecotr<int>>matix(row,vecotr<int>(col)) this creates a list inside a list 
+
+    row and column created as
+    int row=matrix.size();
+    int col=matix[0].size();
+
+    loop to iterate over matrix is 
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+
+        }
+    }
+
+    Transpose :
+
+        the coulumns and rows in a matrix are exchanged.
+        coulumns become rows and rows become coulumns.
+
+        diagonals do not get changed in a Transpose
+        eg : 
+            for a 3x3 matrix the following will be the changes:
+            (0,1)-> (1,0)
+            (0,2)->(2,0)
+            (1,0)->(0,1)
+            (1,2)->(2,1)
+            (2,0)->(0,2)
+            (2,1)->(1,2)
+            the following will be constant they do not change :
+
+            (0,0)
+            (1,1)
+            (2,2)
+
+            snippet :
+            by using third variable
+            for(int i=0;i<row;i++)
+            {
+                for(int j=0;j<col;j++)
+                {
+                    swap(matrix[i][j]->[j][i])
+                }
+            }
+            by using extra variable 
+            for (int i = 0; i < row; i++) {
+                for (int j = i + 1; j < col; j++) {
+                    int temp = mat[i][j];
+                    mat[i][j] = mat[j][i];
+                    mat[j][i] = temp;
+                }
+            }
+            by not using external variable
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < i; j++) {  
+                    a[i][j] = a[i][j] ^ a[j][i];
+                    a[j][i] = a[i][j] ^ a[j][i];
+                    a[i][j] = a[i][j] ^ a[j][i];
+                }
+            }
+        
+
+    Rotate of matrix by 90° anti clockwise :    
+        Brute force method:
+        1. perform the Transpose
+        2. reverse the Transpose columnwise
+
+        snippet:
+        step : 1
+        for (int i = 0; i < row; i++) {
+            for (int j = i + 1; j < col; j++) {
+                int temp = mat[i][j];
+                mat[i][j] = mat[j][i];
+                mat[j][i] = temp;
+            }
+        }
+        step : 2
+
+            while(col<n)
+            {
+                i=0,j=n-1;
+                while(i<j)
+                {
+                    swap ith column and jth column (x[i][col],x[j][col])
+                    i=i+1;
+                    j=j+1;
+                }
+            }
+
+    Rotate of matix by 90° anti clockwise optimized :
+
+            for(int i=0;i<n/2;i++)
+            {
+               for(int j=i;j<i;j++)
+                   {
+                    swapping mechanism( ([i][j]) -> ([n-j-1][i]) ->, ([n-i-1][n-j-1]) -> ([j][n-i-1]) )
+                   }
+           }     
+
+        code for the above :
+           for (int i = 0; i < n / 2; i++) {  
+            for (int j = i; j < n - i - 1; j++) {  
+                // Swapping elements in a cyclic order  
+                int temp = mat[i][j];  
+                mat[i][j] = mat[j][n - i - 1];  
+                mat[j][n - i - 1] = mat[n - i - 1][n - j - 1];  
+                mat[n - i - 1][n - j - 1] = mat[n - j - 1][i];  
+                mat[n - j - 1][i] = temp;  
+            }  
+        }
+
+    Rotate of matrix by 90° clockwise optimized:
+
+            int n = matrix.size();
+            for (int i = 0; i < n / 2; i++) {
+                for (int j = i; j < n-i-1;j++) {
+                    int temp = matrix[i][j];
+                    matrix[i][j] = matrix[n-j-1][i];
+                    matrix[n-j-1][i] = matrix[n-i-1][n-j-1];
+                    matrix[n-i-1][n-j-1] = matrix[j][n-i-1];
+                    matrix[j][n-i-1] = temp;
+                }
+            }
+
+    Wave form of a matrix : 
+            
+            ->  set up for the column intializing
+            ->  used to switch between top-bottom or bottom-top loops
+            ->  it prints from top to bottom
+            ->  it prints from bottom to top 
+
+            code :
+                    for (int j = 0; j < col; j++) { 
+                        if (j % 2 == 0) { 
+                            for (int i = 0; i < row; i++) {  
+                                cout << a[i][j] << " ";
+                            }
+                        } else {
+                            for (int i = row - 1; i >= 0; i--) { 
+                                cout << a[i][j] << " ";
+                            }
+                        }
+                    }
+
+String :
+
+        Reverse vowels in a string :
+
+                intialize i and j as i=0 , j=n-1
+                then put a conditional while(i<j)
+                then start iterating from fornt with i and from end with j check if vowels if yes swap and increment else just incerement
+                write a isvowel functiont to check if character is vowel or not
+
+            code :
+
+            bool isVowel(char &ch){
+                if (ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u')
+                return true;
+                else if(ch=='A'||ch=='E'||ch=='I'||ch=='O'||ch=='U')
+                return true;
+                else
+                return false;
+            }
+            string reverseVowels(string s) {
+                int n=s.length();
+                int i=0,j=n-1;
+                while(i<j)
+                {
+                    if(!(isVowel(s[i])))
+                    i++;
+                    else if(!(isVowel(s[j])))
+                    j--;
+                    else{
+                        char sd = s[i];
+                        s[i]=s[j];
+                        s[j]=sd;
+                        i++;
+                        j--;
+                    }
+                }
+        
+                return s;
+            }
+
+Two sum : given an array and a target return the indices of the array when they add up to give the target
+
+                2 7 5 11 target = 9
+                return [0,1] indexes [ since 2+7=target=9]
+
+            Brute force approach O(n^2) complexity:
+
+                for(int i=0;i<n;i++)
+                {
+                    for(int j=i+1;j<n;j++)
+                    {
+                        if([i]+[j]==target)
+                        {
+                            return [i,j]
+                        }
+                    }
+                }
+
+            optimized :
+                
+                -> hash table with two passes 
+                            or
+                -> hash table with one passes O(n)complexity
+                 
+                   key value 
+                   0    2
+                   1    7
+                   2    5
+                   3    11
+
+Two Sum II - Input Array Is Sorted : indexing starts from 1 and the array is sorted before itself
+
+                code optimized approach:
+                int i=0,j=nums.length-1;
+                while(i<j)
+                {
+                    int sum=nums[i]+nums[j];
+                    if(sum>target)
+                    j--;
+                    else if(sum<target)
+                    i++;
+                    else
+                    {
+                        a[0]=i+1;
+                        a[1]=j+1;
+                        return a;
+                    }
+                }
+
+                
+Valid palindrome : A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+            Given a string s, return true if it is a palindrome, or false otherwise.
+
+            Example 1:
+
+            Input: s = "A man, a plan, a canal: Panama"
+            Output: true
+            Explanation: "amanaplanacanalpanama" is a palindrome.
+            Example 2:
+
+            Input: s = "race a car"
+            Output: false
+            Explanation: "raceacar" is not a palindrome.
+
+
+                            steps :
+
+                            first write a isAlphanum function 
+
+                            code : 
+
+                                bool isAlphanum(char c)
+                                {
+                                    return (c>=A&&c<=Z)||(c<=a && c>=z) || (c>=0 && c<= 9)
+                                }
+
+                                then  write the function to implement
+
+                                l=0 , r=s.length-1;
+                                while(l<r)
+                                {
+                                    while(l<r && (!isAlphanum(s[l])))
+                                    l++;
+
+                                    while(l<r && V(!isAlphanum(s[r])))
+                                    r--;
+
+                                    if(tolower(s[l])!=tolower(s[r]))
+                                    return false;
+                                }
+
+                                l++;
+                                r--;
+                                return true;
+
+
+3Sum problem :  Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+Notice that the solution set must not contain duplicate triplets.
+
+                    Example 1:
+
+                    Input: nums = [-1,0,1,2,-1,-4]
+                    Output: [[-1,-1,2],[-1,0,1]]
+                    Explanation: 
+                    nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
+                    nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
+                    nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
+                    The distinct triplets are [-1,0,1] and [-1,-1,2].
+                    Notice that the order of the output and the order of the triplets does not matter.
+                    Example 2:
+
+                    Input: nums = [0,1,1]
+                    Output: []
+                    Explanation: The only possible triplet does not sum up to 0.
+                    Example 3:
+
+                    Input: nums = [0,0,0]
+                    Output: [[0,0,0]]
+                    Explanation: The only possible triplet sums up to 0.
+
+
+                    Brute Force approach :
+
+                                code :
+                                int n=nums.size();
+                                sort(nums.begin(),nums.end());
+                                for(int i=0;i<n;i++)
+                                {
+                                    for(int j=i+1;j<n;j++)
+                                    {
+                                        for(int k=j+1;k<n;k++)
+                                        {
+                                            if((nums[i]+nums[j]+nums[k])==0)
+                                            {
+                                               res.insert({nums[i], nums[j], nums[k]}) ;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                return vector<vector<int>>(res.begin(), res.end());
+
+                    optimized approach :
+                                
+                    for (int i = 0; i < n; i++) {
+                        int l = i + 1, r = n - 1;
+                        while (l < r) {
+                            int sum = nums[i] + nums[l] + nums[r];
+                            if (sum > 0)
+                                r--;
+                            else if (sum < 0)
+                                l++;
+                            else {
+                                res.insert({nums[i], nums[l], nums[r]});
+                                l++;
+                                r--;
+                            }
+                        }
+                    }
+                    return vector<vector<int>>(res.begin(), res.end());
+
+
+Sliding Window problem : [ it can only be used for contiguous elements ]
+
+                    1. it uses caterpillar moment .
+                    2. In this the redundant elements inside a named variable whether it is subtraction , addition , multiplication or division and will just
+                        increment left most and right most pointers to avoid redundant calculations
+                    3. they are of two types :
+                        i] fixed size Window
+                        ii] varibale size Window
+                    Note : min max functions() are also known as compatators.
+
+                    algorithm :
+                Q. sum of elements using sliding Window
+                     1. create a function compatator(min if a>b,max if a<b)
+                     2. create another function 
+                     
+                        sunm(&nums,int k)
+                        {
+                            //add first k elemements 
+                            int maxsum=0;
+                            for(int i=0;i<k;i++)
+                            {
+                                maxsum += nums[i];
+                            }
+                            currsum=maxsum
+                             for(int i=k;i<nums.size();i++)
+                             {
+                                currsum=nums[i] + n[i-k] or nums[i] - n[i-k];
+                             }
+
+                             maxsum=max(maxsum,currsum);
+                             return maxsum;
+                        }
+
+Graphs :
+                            // dynamic list source destination
+            #include<bits/stdc++.h>
+            using namespace std;
+
+            void addEdge (vector<int>adj[],int u, int v) // [ dynamic list , source , list]
+            {   
+
+                adj[u].push_back[v];
+                adj[v].push_back[u];
+
+            }
